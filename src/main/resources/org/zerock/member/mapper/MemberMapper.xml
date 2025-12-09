@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+  <mapper namespace="org.zerock.member.mapper.MemberMapper">
+
+
+<!-- 로그인 -->
+  <select id="login" resultType="org.zerock.member.vo.LoginVO">
+  	select
+  		m.id, m.pw, m.name, m.photo, m.status, m.gradeNo, g.gradeName
+  		from member m, grade g
+  	where
+  		(id=#{id} and pw=#{pw})
+  	and
+  		(m.gradeNo = g.gradeNo)
+  </select>
+
+
+<!-- 아이디 중복 확인 -->
+<select id="checkId" resultType="String">
+	select id from member where id=#{id}
+</select>
+
+<!--  회원가입  -->
+ <insert id="write">
+ 	insert into member (id, pw, name, gender, birth, tel, email, address)
+ 	values (#{id}, #{pw}, #{name}, #{gender}, #{birth}, #{tel}, #{email}, #{address})
+ </insert>
+ 
+<!-- 내정보 보기 (페이지 따로 없음) --> 
+ <select id="view" resultType="org.zerock.member.vo.MemberVO">
+ select
+ id, name, birth, gender, tel, email, address, regDate 
+  from member where id= #{id}
+ </select>
+ 
+ 
+ <!-- 회원 정보 수정 (내 정보 일반회원) -->
+
+<update id="update">
+    update member 
+    set name = #{name}, birth = #{birth, jdbcType=DATE}, gender = #{gender}, address = #{address}, 
+        email = #{email}, tel = #{tel}, photo = #{photo, jdbcType=VARCHAR}, regDate = #{regDate, jdbcType=DATE}
+    where id = #{id}
+</update>
+
+<!--  어드민게시판 리스트 쿼리 -->
+  	<select id="list" resultType="org.zerock.member.vo.MemberVO">
+  		select id, name, birth, gender, email, tel, photo, gradeno, status
+  		from
+  		(
+	  		select rownum rnum, id, name, birth, gender, email, tel, photo, gradeno, status
+	  		from
+	  		(
+			  	select id, name, birth, gender, email, tel, photo, gradeno, status
+			  	from member
+			  	<!-- 검색을 달아야 한다. -->
+			  	order by id desc
+		  	)
+	  	)
+	  	where rnum between #{startRow} and #{endRow}
+  	</select>
+  	
+  	<!-- 관리자 페이지에서 상태, 등급 변경 -->
+  	<update id="updateStatusAndGrade" parameterType="map">
+	    UPDATE member
+	    SET status = #{status}, gradeNo = #{gradeNo}
+	    WHERE id = #{id}
+	</update>
+  	
+  	<!-- 페이지 처리를 위한 전체 데이터 개수를 가져오는 쿼리 -->
+  	<select id="getTotalRow" resultType="Long">
+  		select count(*)
+  		from member
+  		<!-- 검색을 달아야 한다. -->
+  	</select>
+	
+	<!-- 일반 회원 로그인 시 탈퇴 처리 -->
+	<update id="updateMemberStatusToQuit" parameterType="String">
+	    UPDATE member
+	    SET status = '탈퇴'
+	    WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 이메일로 사용자 검색 -->
+    <select id="findByEmail" parameterType="String" resultType="org.zerock.member.vo.MemberVO">
+        SELECT * FROM member WHERE email = #{email}
+    </select>
+
+    
+
+
+  </mapper>

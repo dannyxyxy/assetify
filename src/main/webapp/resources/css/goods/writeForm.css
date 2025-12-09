@@ -1,0 +1,39 @@
+@charset "UTF-8";
+    form {
+    	width: 1143px;
+    }
+    
+    .form-control {
+    	width: 560px;
+    }
+    
+    #content {
+    	width: 100%;
+    	margin-top: 16px;
+    }
+    
+    .btn1 {
+    	width: 150px;
+    	height: 40px;
+    	border: none;
+    	border-radius: .25rem;
+    	font-size: 16px;
+    }
+    
+    .btn2 {
+    	margin-right: 16px;
+    	width: 150px;
+    	height: 40px;
+    	border: none;
+    	border-radius: .25rem;
+    	font-size: 16px;
+    	background: black;
+    	color: white;
+    }
+    
+    select {
+    	height: 38px;
+    	border: 1px solid #ccc;
+    	border-radius: .25rem;
+    }
+    

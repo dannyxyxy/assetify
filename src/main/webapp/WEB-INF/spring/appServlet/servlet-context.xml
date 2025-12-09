@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- controller의 mapping을 거치기 않고 url직접 접근이 가능하도도록 설정하는곳 -->
+	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/js/**" location="/js/" />
+	<resources mapping="/css/**" location="/css/" />
+	<resources mapping="/upload/**" location="/upload/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- 파일 업로드 객체 설정 -->
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 데이터의 인코딩 방식 -->
+		<beans:property name="defaultEncoding" value="utf-8"></beans:property>
+		<!-- 전체 업로드 용량 제한 : 1024 * 1024 * 100 = 1048575600(100MB) -->
+		<beans:property name="maxUploadSize" value="1048575600"></beans:property>
+		<!-- 한개의 파일 업로드 용량 제한 : 1024 * 1024 * 10 = 104857560(10MB) -->
+		<beans:property name="maxUploadSizePerFile" value="104857560"></beans:property>
+		<!-- 큰 용량의 파일이 들어오면 파일로 저장하는 임시폴더가 필요(->세팅) -->
+		<!-- 세팅한 폴더가 반드시 있어야 합니다. -->
+		<beans:property name="uploadTempDir" value="file:c:/upload/temp"></beans:property>
+		<!-- 사용 메모리 용량 제한 : 1MB -->
+		<beans:property name="maxInMemorySize" value="10485756"></beans:property>
+	</beans:bean>
+	
+	
+	<context:component-scan base-package="org.zerock" />
+	
+	<!-- AOP 추가 -->
+	<context:annotation-config></context:annotation-config>
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/**"/>
+			<beans:bean class="org.zerock.util.interceptor.AuthrityInterceptor">
+			</beans:bean>
+		</interceptor>
+	</interceptors>
+	
+</beans:beans>
+
+
+
+
+

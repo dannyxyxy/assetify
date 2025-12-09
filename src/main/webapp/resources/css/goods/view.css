@@ -1,0 +1,217 @@
+@charset "UTF-8";
+
+.col-md-6 {
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.img-thumbnail, .bigImg, .imgContent {
+    padding: 0;
+    border: none;
+    border-radius: 0;
+}
+
+#smallImageDiv {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+#smallImageDiv img {
+	width: 80px;
+	height: 80px;
+	margin: 0 10px;
+}
+
+#smallImageDiv img:hover {
+	opacity: 70%;
+	cursor: pointer;
+}
+
+.lArr, .rArr {
+	scale: 2;
+	cursor: pointer;
+	margin-top: 30px;
+	color: #79747E;
+}
+
+.lArr {
+	rotate: 90deg;
+	float: left;
+}
+
+.rArr {
+	rotate: -90deg;
+	float: right;
+}
+
+#goodsDetailDiv {
+	width: 100%;
+	padding-left: 100px;
+	font-size: 14px;
+}
+
+.tit, .summary2 {
+	display: -webkit-box;
+	overflow: hidden;
+	-webkit-box-orient: vertical;
+}
+
+.tit {
+	width: 100%;
+	height: 100px;
+	-webkit-line-clamp: 2;
+}
+
+.summary {
+	margin-bottom: 46px;
+}
+
+.summary2 {
+	-webkit-line-clamp: 2;
+	line-height:25px;
+	height: 50px;
+}
+
+.lBox {
+	width: 25%;
+	float: left;
+}
+
+.lBox > div, .rBox > div {
+	margin-top: 18px;
+}
+
+.lBox > div:first-child, .rBox > div:first-child {
+	margin-top: 0;
+}
+
+.rBox {
+	width: 50%;
+	float: right;
+}
+
+.bBox {
+	width: 100%;
+	position: relative;
+	top: 50px;
+	display: inline;
+}
+
+.bBoxImg {
+	width: 100%;
+	height: 110px;
+	background-repeat: no-repeat;
+	border-radius: .25rem;
+	object-fit: cover;
+	object-position: 0 -100px;
+	opacity: 0.5;
+}
+
+.bBox .bBoxTxt {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: black;
+	text-align: center;
+}
+
+.add {
+	width: 100%;
+	margin-top: 16px;
+	position: relative;
+	top: 45px;
+	display:flex;
+	gap:18px;
+	align-items: center;
+}
+.add > .btn-addcart,.btn-wishlist,.btn-addcart{
+	width: 150px;
+    height: 40px;
+    font-size: 14px; /* 적절한 크기로 조정 */
+    background-color: #EEE;
+    color: #000; /* 텍스트 색상 */
+    border: none;
+    border-radius:.25rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+.manage{
+	width: 100%;
+	margin-top: 16px;
+	position: relative;
+	top: 45px;
+	display:flex;
+	gap:18px;
+	justify-content: flex-end; /* 버튼들을 오른쪽으로 정렬 */
+}
+.manage > .editBtn,.deleteBtn{
+	width: 150px;
+    height: 40px;
+    font-size: 14px; /* 적절한 크기로 조정 */
+    background-color: #000;
+    color: #FFF; /* 텍스트 색상 */
+    border: none;
+    border-radius:.25rem;
+    text-align: center;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.editBtn{
+	display: inline-flex; /* 플렉스 컨테이너로 변경 */
+    align-items: center;  /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 (선택 사항) */
+}
+
+.btn:hover{
+	color:#fff;
+	background-color: #000;
+}
+
+/* Custom scrollbar style */
+#smallImageDiv::-webkit-scrollbar {
+    height: 8px;
+}
+
+#smallImageDiv::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+}
+
+#smallImageDiv::-webkit-scrollbar-thumb:hover {
+    background-color: #888;
+}
+
+#smallImageDiv::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+
+#topBtn {
+    position: fixed;
+    bottom: 30px; /* 버튼의 화면 하단으로부터의 위치 */
+    right: 30px;  /* 버튼의 화면 오른쪽으로부터의 위치 */
+    background-color: #343a40; /* 버튼 배경색 */
+    color: white; /* 텍스트 색 */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    display: none; /* 스크롤 위치에 따라 나타나도록 설정 */
+    z-index: 1000;
+    transition: background-color 0.3s;
+}
+
+#topBtn:hover {
+    background-color: #495057; /* 호버 시 배경색 */
+}
+

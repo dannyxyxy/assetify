@@ -1,0 +1,173 @@
+@charset "UTF-8";
+
+p {
+   font-size: 16px;
+   margin: 0;
+}
+
+img {
+   width: 36px;
+   height: 36px;
+}
+
+i {
+   width: 24px;
+   height: 24px;
+}
+
+.misTitleBody {
+   display: grid;
+   grid-template-columns: 0.1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 0.1fr;
+   place-items: center;
+   text-align: center;
+   width: 100%;
+   height: 70px;
+   background-color: #fff;
+   padding: 0;
+   margin: 24px 0 0 0;
+   border-radius: .25rem;
+   box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.misTitleBody p {
+   margin: 0;
+}
+
+.misBody {
+   display: grid;
+   grid-template-columns: 0.1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 0.1fr;
+   place-items: center;
+   height: 70px;
+   padding: 0;
+   margin-top: 10px;
+   border-radius: .25rem;
+   border-bottom: 1px solid #eee;
+/*    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3); */
+}
+
+.misBody p {
+   font-size: 14px;
+}
+
+.gradeSpace {
+   margin: 0;
+   padding: 0;
+   text-align: center;
+}
+
+.statusSpace {
+   margin: 0;
+   padding: 0;
+   text-align: center;
+}
+
+.appraisal {
+   margin: 0 auto;
+   width: 120px;
+   height: 30px;
+   border: 1px solid #ccc;
+   text-align: center;
+   font-size: 14px;
+}
+
+.misFooter {
+   margin-top: 8px;
+   height: 100px;
+}
+
+.misFooterBtnSpace {
+   float: right;
+}
+
+.updateBtn {
+   color: #fff;
+   width: 150px;
+   height: 40px;
+   font-size: 14px;
+   background-color: #333;
+   margin: 0;
+   padding: 0;
+   border: none;
+   border-radius: .25rem;
+}
+
+.cancleBtn {
+   color: #000;
+   width: 150px;
+   height: 40px;
+   font-size: 14px;
+   background-color: #eee;
+   margin: 0 16px 0 0;
+   padding: 0;
+   border: none;
+   border-radius: .25rem;
+}
+
+.member-row {
+   border: none;
+   padding: 0px;
+   margin: 0px;
+}
+
+.gradeSpace {
+   width: 100%;
+}
+
+.statusSpace {
+   width: 100%;
+}
+
+select {
+   padding-right: 15px;
+   appearance: none; /* 기본 화살표 제거 (브라우저 기본 스타일 제거) */
+    -webkit-appearance: none; /* Webkit 기반 브라우저 (Chrome, Safari) */
+    -moz-appearance: none; /* Firefox */
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" fill="black"><polygon points="0,0 10,0 5,5"/></svg>') no-repeat right 10px center;
+    background-size: 10px; /* 화살표 크기 */
+    border-radius: .25rem;
+}
+
+.selectBox[type="text"], select {
+   width: 100%;
+   height: 40px;
+}
+
+/* 페이지 내비게이션 */
+.pageNav {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-top: 40px;
+   gap: 8px;
+}
+
+.pageNav a {
+   text-decoration: none;
+   color: #888;
+   font-size: 14px;
+   padding: 5px 10px;
+   border: 1px solid transparent;
+   cursor: pointer;
+   transition: all 0.2s ease-in-out;
+}
+
+.pageNav a:hover {
+   font-weight: bold;
+   color: #333;
+   border: 1px solid #ddd;
+   border-radius: 4px;
+}
+
+.pageNav a.active {
+   font-weight: bold;
+   color: #333;
+   border: 1px solid #ddd;
+   background-color: #f0f0f0;
+   border-radius: 4px;
+}
+
+.pageNav a.disabled {
+   color: #ccc;
+   cursor: not-allowed;
+   pointer-events: none;
+}

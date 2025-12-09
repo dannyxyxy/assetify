@@ -1,0 +1,207 @@
+@charset "UTF-8";
+.main-content {
+	padding: 20px 0 0;
+}
+.container {
+	margin-top: 0; !important;
+}
+
+.listHeader{
+		margin-bottom:15px;
+	}
+		.visualImage {
+		    position: relative;
+		    width: 100%;
+		    height: 300px; /* 전체 높이 설정 */
+		    display: flex;
+		    flex-direction: column;
+		    border-radius: 15px;
+		    overflow: hidden;
+		}
+		
+		/* 상단 비주얼 이미지와 텍스트 부분 */
+		.visualImage-top {
+		    height: 220px; /* 상단 이미지 부분 높이 */
+		    background-size: cover;
+		    background-position: center;
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    color: white;
+		}
+		.visualImage .visualImage-top {
+    background-size: cover;
+    background-position: center;
+}
+		
+		.category-title {
+		    font-size: 24px;
+		    font-weight: bold;
+		    text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* 텍스트 그림자 */
+		}
+		
+		.visualImage-form {
+		    display: flex;
+    		align-items: center; /* 가로 중앙 정렬 */
+   			 justify-content: center; /* 세로 중앙 정렬 */
+		    height:70px;
+		    
+		}
+		
+		/* 서치 아이콘 버튼 스타일 */
+		.input-group-prepend button.btn-primary {
+		    border: none;
+		    background-color: transparent; /* 배경 제거 */
+		    display: flex;
+		    align-items: center; /* 상하 가운데 정렬 */
+		    justify-content: center;
+		    height: 0px; /* 입력 필드 높이에 맞춤 */
+		    margin-bottom:20px;
+		}
+		
+		.btn-primary i {
+		    font-size: 1.2em; /* 아이콘 크기 조정 */
+		    background-color: transparent; /* 배경 제거 */
+		    color: #555555; /* 원하는 색상 */
+		}
+ 		
+        .sale_price {
+            font-weight: bold;
+        }
+        .discount_rate {
+            font-weight: bold;
+            color: red;
+            font-size: small;
+            margin-left:20px;
+        }
+        .card {
+		    position: relative;
+		    overflow: hidden;
+		    transition: transform 0.3s ease, background-color 0.3s ease;
+		    margin-top: 15px;
+		    margin-bottom: 15px;
+		    border:none;
+		    height:450px;
+		}
+		
+		.imageDiv {
+		    position: relative;
+		    overflow: hidden;
+		}
+		
+		.card-img-top {
+		    width: 100%;
+		    height: 300px;
+		    object-fit: cover;
+		}
+		
+		.overlay {
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    width: 100%;
+		    height: 100%;
+		    background-color: rgba(0, 0, 0, 0.1); /* 어두운 배경 */
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    opacity: 0; /* 기본 상태에서는 숨김 */
+		    transition: opacity 0.3s ease;
+		}
+		
+		.card:hover .overlay {
+		    opacity: 1; /* 호버 시 어두운 배경 나타남 */
+		}
+		
+		.btn {
+		    color: white;
+		    background: transparent; /* 버튼 배경 투명 */
+		    border: none;
+		    margin: 5px;
+		    padding: 10px;
+		    cursor: pointer;
+		}
+
+		.original-price {
+    	color: #888; /* 색상 낮추기 (회색 등으로) */
+   		text-decoration: line-through; /* 줄긋기 */
+    	font-size: nomal;
+		}
+		.sale_price, .card-title{
+			font-size:20px;
+			font-weight:bold;
+		}
+		.review_count{
+			color:#888;
+			font-size:9px;
+			text-align:right;
+		}
+		.simple-content{
+			font-size: small; /* 폰트 크기 조정 */
+    		color: #666; /* 연한 색상 */
+    		 white-space: nowrap; /* 텍스트를 한 줄로 설정 */
+    		overflow: hidden; /* 넘치는 텍스트 숨김 */
+    		text-overflow: ellipsis; /* 생략 표시 (...) 추가 */
+    		display: block; /* 한 줄로 표시되도록 블록 요소로 설정 */
+		}
+		
+		/* 페이지 내비게이션 */
+.pageNav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.pageNav a {
+    text-decoration: none;
+    color: #888;
+    font-size: 14px;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.pageNav a:hover {
+    font-weight: bold;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.pageNav a.active {
+    font-weight: bold;
+    color: #333;
+    border: 1px solid #ddd;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+
+.pageNav a.disabled {
+    color: #ccc;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.registerBtn {
+   color: #fff; /* 텍스트 색상 */
+   width: 150px;
+   height: 40px;
+   font-size: 14px;
+   background-color: #333; /* 버튼 배경색 */
+   margin: 0;
+   border-radius: .25rem; /* 둥근 모서리 */
+   display: inline-block; /* 박스처럼 동작하도록 설정 */
+   text-align: center; /* 텍스트 가운데 정렬 */
+   line-height: 40px;
+   text-decoration: none; /* 링크 밑줄 제거 */
+   cursor: pointer; /* 마우스 커서를 클릭 모양으로 변경 */
+   
+}
+
+.registerBtn:hover {
+   text-decoration: none;
+   color: #fff;
+}
+		

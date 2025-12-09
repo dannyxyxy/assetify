@@ -1,0 +1,187 @@
+@charset "UTF-8";
+
+/* Cart Item Card */
+.cart-item-card {
+    display: block;
+    width: 100%;
+    height: 150px;
+    border: none;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* float을 사용하는 이미지 정렬을 위해 설정 */
+    position: relative;
+    margin-bottom: 15px;
+}
+
+/* Image styling */
+.cart-image-wrapper {
+    width: 15%;
+    float: left; /* 이미지 왼쪽 정렬 */
+    margin-right: 10px; /* 이미지와 내용 사이 간격 */
+    overflow: hidden; /* 이미지 영역을 넘지 않도록 설정 */
+}
+
+.cart-image {
+    width: 160px;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Right Section - Product Details */
+.card-body {
+    display: inline-block; /* float과 함께 사용하여 왼쪽 이미지 옆에 배치 */
+    width: 80%;
+    vertical-align: top; /* 상단 정렬 */
+    box-sizing: border-box;
+}
+
+.card-title, .sale-price {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.price-section {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.original-price {
+    color: #888;
+    text-decoration: line-through;
+}
+
+.sale-price {
+    margin-left: 20px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.discount-rate {
+    font-weight: bold;
+    color: red;
+    font-size: small;
+    margin-left: 20px;
+}
+
+.simple-content {
+    font-size: small;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    margin-top: 5px;
+}
+
+/* 수량 조절 입력 필드 */
+.total-adjust {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Aligning the input to the right */
+    position: relative;
+    z-index: 20; /* Higher z-index to keep it above the overlay */
+    margin-left:50px;
+}
+
+.total-input {
+    width: 60px;
+    height: 32px;
+    text-align: center;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+/* Overlay on Card Hover */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+.btn {
+		    color: white;
+		    background: transparent; /* 버튼 배경 투명 */
+		    border: none;
+		    margin: 5px;
+		    padding: 10px;
+		    cursor: pointer;
+		}
+
+.card:hover .overlay {
+    opacity: 1;
+}
+
+/* 페이지 내비게이션 */
+.pageNav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    gap: 8px;
+}
+
+.pageNav a {
+    text-decoration: none;
+    color: #888;
+    font-size: 14px;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.pageNav a:hover {
+    font-weight: bold;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.pageNav a.active {
+    font-weight: bold;
+    color: #333;
+    border: 1px solid #ddd;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+
+.pageNav a.disabled {
+    color: #ccc;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Cart Summary Card */
+.cart-summary.card {
+    text-align: center; /* 텍스트를 가운데 정렬 */
+    margin: auto; /* 좌우 중앙 정렬 */
+}
+
+/* Table cell alignment */
+.table th, .table td {
+    vertical-align: middle; /* 상하 가운데 정렬 */
+    text-align: center; /* 좌우 가운데 정렬 */
+}
+
+.buy-btn {
+    display: inline-block;
+    text-align: center;
+    padding: 8px 16px;
+    background-color: #4CAF50; /* 원하는 색상으로 변경 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

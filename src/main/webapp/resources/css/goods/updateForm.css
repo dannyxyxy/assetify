@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+.ipt {
+   width: 49%;
+   font-size: 14px;
+}
+
+#content {
+   width: 100%;
+   margin-top: 16px;
+}
+
+select {
+   height: 38px;
+   border: 1px solid #ccc;
+   border-radius: .25rem;
+}
+
+.buttonGroup {
+   margin-top: 128px;
+   height: 100px;
+   text-align: right;
+}
+
+.btn1 {
+   color: #000;
+   width: 150px;
+   height: 40px;
+   border: none;
+   font-size: 14px;
+   background: #eee;
+   border-radius: .25rem;
+}
+
+.btn2 {
+   color: #fff;
+   width: 150px;
+   height: 40px;
+   font-size: 14px;
+   background: #333;
+   margin: 0 16px 0 0;
+   border-radius: .25rem;
+   border: none;
+}

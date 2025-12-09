@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.event.mapper.EventMapper">
+   <!-- 이벤트 게시판 리스트 쿼리 -->
+   <select id="list" resultType="org.zerock.event.vo.EventVO">
+       SELECT eno, title, content, startDate, endDate, writeDate, imageName
+       FROM
+       (
+           SELECT rownum rnum, eno, title, content, startDate, endDate, writeDate, imageName
+           FROM
+           (
+               SELECT eno, title, content, startDate, endDate, writeDate, imageName
+               FROM event
+               <!-- 검색을 달아야 한다. -->
+               <include refid="search"></include>
+               order by eno desc
+           )
+       )
+       WHERE rnum between #{startRow} and #{endRow}
+   </select>
+
+   <!-- 이벤트 게시판 리스트 페이지 처리를 위한 전체 데이터 개수를 가져오는 쿼리 -->
+   <select id="getTotalRow" resultType="Long">
+       SELECT count(*)
+       FROM event
+       <!-- 검색을 달아야 한다. -->
+       <include refid="search"></include>
+   </select>
+
+   <!-- 이벤트게시판 리스트 검색 처리 -->
+   <sql id="search">
+       <if test="word != null and word != ''.toString()">
+           <trim prefix="where" prefixOverrides="or">
+               <if test="key.indexOf('t') >= 0">
+                   or title like '%' || #{word} || '%' 
+               </if>
+               <if test="key.indexOf('c') >= 0">
+                   or content like '%' || #{word} || '%'
+               </if>
+               <if test="key.indexOf('w') >= 0">
+                   or writer like '%' || #{word} || '%'
+               </if>
+           </trim> 
+       </if>    
+   </sql>
+
+   <!-- 이벤트 게시판 글보기 -->
+   <update id="increase">
+       UPDATE event set hit = hit + 1
+       WHERE eno = #{eno}
+   </update>
+
+   <select id="view" resultType="org.zerock.event.vo.EventVO">
+       SELECT eno, title, content, startDate, endDate, writeDate, imageName
+       FROM event
+       WHERE eno = #{eno, jdbcType=INTEGER}
+   </select>
+
+   <!-- 이벤트 게시판 글쓰기 쿼리 -->
+   <insert id="write">
+       <selectKey keyProperty="eno" resultType="Long" order="BEFORE">
+           select event_seq.nextval from dual
+       </selectKey>
+       INSERT INTO event(eno, title, content, startDate, endDate, writeDate, imageName)
+       VALUES(#{eno}, #{title, jdbcType=VARCHAR}, #{content, jdbcType=VARCHAR}, 
+               #{startDate, jdbcType=DATE}, #{endDate, jdbcType=DATE}, #{writeDate, jdbcType=DATE}, 
+               #{imageName, jdbcType=VARCHAR})
+   </insert>
+
+   <!-- 이벤트 게시판 글수정 쿼리 -->
+   <update id="update">
+<!--        <![CDATA[ -->
+		UPDATE event
+		SET title = #{title, jdbcType=VARCHAR}, content = #{content, jdbcType=VARCHAR},
+			startDate = #{startDate, jdbcType=DATE}, endDate = #{endDate, jdbcType=DATE}, writeDate = #{writeDate, jdbcType=DATE},
+			imageName = #{imageName, jdbcType=VARCHAR}
+		WHERE eno = #{eno, jdbcType=INTEGER}
+<!-- 		]]> -->
+   </update>
+<!--    <update id="update"> -->
+<!--        <![CDATA[ -->
+<!--        SELECT eno, title, content, startDate, endDate, writeDate, imageName -->
+<!--        FROM event -->
+<!--        WHERE eno = #{eno} -->
+<!--        ]]> -->
+<!--    </update> -->
+
+   <!-- 이벤트 게시판 글삭제 쿼리 -->
+   <delete id="delete">
+       delete from event
+       where eno = #{eno}
+   </delete>
+   
+   
+   
+   
+<!--    메인페이지에 이벤트리스트를 출력하기 위한 쿼리 -->
+   <select id="selectAllEvents" resultType="org.zerock.event.vo.EventVO">
+	    SELECT eno, title, content, imageName
+	    FROM event
+	</select>
+   
+   
+</mapper>

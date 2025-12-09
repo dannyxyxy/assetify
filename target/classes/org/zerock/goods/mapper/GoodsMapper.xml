@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="org.zerock.goods.mapper.GoodsMapper">
+
+ <select id="list" parameterType="org.zerock.goods.vo.GoodsSearchVO" resultType="org.zerock.goods.vo.GoodsVO">
+    SELECT rnum, goods_no, goods_name, goods_code, price, discount_rate, sale_price, image_name, content, cate_code1, cate_name
+    FROM (
+        SELECT ROW_NUMBER() OVER (ORDER BY g.goods_no DESC) AS rnum,
+               g.goods_no, g.goods_name, g.goods_code, 
+               p.price, p.discount_rate, p.sale_price, 
+               g.image_name, g.content, 
+               g.cate_code1 AS cate_code1, 
+               c.cate_name
+        FROM goods g
+        JOIN goods_price p ON g.goods_no = p.goods_no
+        JOIN category c ON g.cate_code1 = c.cate_code1
+        WHERE 1=1
+          <include refid="search" />
+    ) subquery
+    WHERE rnum BETWEEN #{pageObject.startRow} AND #{pageObject.endRow}
+</select>
+
+
+
+  	<select id="getTotalRow" parameterType="org.zerock.goods.vo.GoodsSearchVO" resultType="Long">
+    SELECT COUNT(*)
+    FROM goods g
+    JOIN goods_price p ON g.goods_no = p.goods_no
+    JOIN category c ON g.cate_code1 = c.cate_code1
+    WHERE 1=1
+      <include refid="search" />
+</select>
+
+  	<sql id="search">
+    <trim prefix="AND" prefixOverrides="and">
+        <!-- 카테고리 대분류, 중분류 -->
+        <if test="goodsSearchVO.cate_code1 != null and goodsSearchVO.cate_code1 != 0">
+            AND g.cate_code1 = #{goodsSearchVO.cate_code1} <!-- 테이블 명시 -->
+        </if>
+        <!-- 제품명 검색 -->
+        <if test="goodsSearchVO.goods_name != null and goodsSearchVO.goods_name != ''">
+            AND g.goods_name LIKE '%' || #{goodsSearchVO.goods_name} || '%'
+        </if>
+        <!-- 최소가격 -->
+        <if test="goodsSearchVO.min_price != null and goodsSearchVO.min_price != 0">
+            <![CDATA[
+            AND p.sale_price >= #{goodsSearchVO.min_price} <!-- price 테이블 명시 -->
+            ]]>
+        </if>
+        <!-- 최대가격 -->
+        <if test="goodsSearchVO.max_price != null and goodsSearchVO.max_price != 0">
+            <![CDATA[
+            AND p.sale_price <= #{goodsSearchVO.max_price} <!-- price 테이블 명시 -->
+            ]]>
+        </if>
+    </trim>
+</sql>
+
+
+
+
+  	
+  	<select id="getCategory" resultType="org.zerock.category.vo.CategoryVO">
+	    SELECT cate_code1, cate_name 
+	    FROM category 
+	    WHERE 1=1
+	    <if test="cate_code1 != null and cate_code1 > 0">
+	        AND cate_code1 = #{cate_code1}
+	    </if>
+	</select>
+
+  	
+  	<select id="view" resultType="org.zerock.goods.vo.GoodsVO">
+    SELECT
+        g.goods_no, g.goods_name, g.goods_code, g.cate_code1, c.cate_name, g.image_name, g.content, g.company,
+        p.price, p.discount_rate, p.sale_price, p.delivary_charge, p.goods_price_no
+    FROM goods g
+    JOIN goods_price p ON g.goods_no = p.goods_no
+    JOIN category c ON g.cate_code1 = c.cate_code1
+    WHERE g.goods_no = #{goods_no}
+</select>
+
+
+  	
+  	<select id="imageList" resultType="org.zerock.goods.vo.GoodsImageVO">
+	    SELECT goods_img_no, goods_img_name, goods_no 
+	    FROM goods_image 
+	    WHERE goods_no = #{goods_no}
+	</select>
+
+  	
+  	<insert id="write">
+    <selectKey keyProperty="goods_no" resultType="Long" order="BEFORE">
+        select goods_seq.nextval from dual
+    </selectKey>
+    insert into goods(goods_no, goods_name, cate_code1, image_name, content, company, goods_code)
+    values(#{goods_no}, #{goods_name}, #{cate_code1}, #{image_name}, #{content}, #{company}, #{goods_code,jdbcType=VARCHAR})
+</insert>
+
+
+  	<insert id="writePrice" parameterType="org.zerock.goods.vo.GoodsVO">
+    <selectKey keyProperty="goods_price_no" resultType="Long" order="BEFORE">
+        SELECT goods_price_seq.NEXTVAL FROM dual
+    </selectKey>
+    INSERT INTO goods_price (goods_price_no, price, discount_rate, sale_price, delivary_charge, goods_no)
+    VALUES (
+        #{goods_price_no},
+        #{price, jdbcType=INTEGER}, 
+        #{discount_rate, jdbcType=INTEGER},
+        #{sale_price, jdbcType=INTEGER},
+        #{delivary_charge, jdbcType=VARCHAR}, 
+        #{goods_no, jdbcType=INTEGER} 
+    )
+</insert>
+
+
+  	<insert id="writeImage">
+    insert into goods_image(goods_img_no, goods_img_name, goods_no)
+    values(goods_image_seq.nextval, #{goods_img_name}, #{goods_no})
+</insert>
+
+  	
+  	<update id="update" parameterType="org.zerock.goods.vo.GoodsVO">
+    UPDATE goods
+    SET goods_name = #{goods_name},
+        cate_code1 = #{cate_code1},
+		image_name = #{image_name, jdbcType=VARCHAR},  
+        content = #{content},
+        company = #{company},
+        goods_code = #{goods_code,jdbcType=VARCHAR}
+    WHERE goods_no = #{goods_no, jdbcType=BIGINT}
+</update>
+
+
+<update id="updatePrice" parameterType="org.zerock.goods.vo.GoodsVO">
+    UPDATE goods_price
+    SET price = #{price, jdbcType=INTEGER},
+        discount_rate = #{discount_rate, jdbcType=INTEGER},
+        sale_price = #{sale_price, jdbcType=INTEGER},
+        delivary_charge = #{delivary_charge, jdbcType=VARCHAR}
+    WHERE goods_price_no = #{goods_price_no, jdbcType=BIGINT}
+</update>
+
+<!-- 이미지 목록 가져오기 -->
+<select id="getImageList" resultType="String">
+    SELECT image_name FROM goods WHERE goods_no = #{goods_no}
+</select>
+
+<!-- 상품 삭제 -->
+<delete id="deleteGoods">
+    DELETE FROM goods WHERE goods_no = #{goods_no}
+</delete>
+
+<!-- 이미지 데이터 삭제 -->
+<delete id="deleteImages">
+    DELETE FROM goods WHERE goods_no = #{goods_no}
+</delete>
+<select id="getCateCode1ByGoodsNo" resultType="int">
+    SELECT cate_code1 FROM goods WHERE goods_no = #{goods_no}
+</select>
+
+<select id="getReviewCountByGoodsNo" parameterType="Long" resultType="int">
+    SELECT COUNT(*)
+    FROM review
+    WHERE goods_no = #{goods_no}
+</select>
+
+<!-- 모든 상품 목록을 likeCount 내림차순으로 정렬해서 조회 -->
+    <select id="selectAllGoods" resultType="org.zerock.goods.vo.GoodsVO">
+	    SELECT g.goods_no, g.goods_name, p.price, p.discount_rate, p.sale_price, g.image_name, g.content
+	    FROM goods g
+	    JOIN goods_price p ON g.goods_no = p.goods_no
+	</select>
+
+
+
+  </mapper>
+  
+  
+  
+  
+  
+  

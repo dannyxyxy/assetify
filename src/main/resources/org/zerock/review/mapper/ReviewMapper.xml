@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="org.zerock.review.mapper.ReviewMapper">
+  
+  	<!-- 일반 게시판 댓글 리스트 페이지 처리를 위한 전체 데이터 개수(글번호)를 가져오는 쿼리 -->
+  	<select id="getTotalRow" resultType="Long">
+  		SELECT count(*)
+  		FROM review
+<!--  		문제점: rno는 보통 고유 댓글 번호이므로 특정 댓글 하나의 개수만 조회하게 됩니다. -->
+<!--  		만약 전체 댓글 개수를 조회하려는 목적이라면, where rno = #{rno} 조건을 제거해야 합니다. -->
+  		WHERE rno = #{rno, jdbcType=INTEGER}
+  	</select>
+  	
+  	
+	<select id="selectAllReview" resultType="org.zerock.review.vo.ReviewVO">
+	    SELECT r.rno, r.goods_no, r.title, r.content, r.id, r.writeDate, r.status,
+	           (SELECT COUNT(*) FROM review_likes l WHERE l.review_rno = r.rno) AS likeCount
+	    FROM review r
+	    ORDER BY likeCount DESC, writeDate DESC  <!-- 좋아요 순, 같은 경우 최신순 -->
+	</select>
+	
+    
+    <select id="goodsReview" parameterType="Long" resultType="org.zerock.review.vo.ReviewVO">
+	    SELECT *
+	    FROM review
+	    WHERE goods_no = #{goods_no}
+	    ORDER BY likeCount DESC, writeDate DESC  <!-- 좋아요 순, 같은 경우 최신순 -->
+	</select>
+
+
+	<!-- 리뷰 쓰기 쿼리 -->
+	<insert id="write">
+<!-- 		keyPorperty: 사용변수이름(ReviewVO), resultType: 변수에 담기는 값 자료형  -->
+<!-- 			order="BEFORE" => 먼저실행한다. -->
+<!-- 		ReviewVO 에 있는 no에 setter를 이용해서 시퀀스에 있는 값을 세팅 -->
+		<selectKey keyProperty="rno" resultType="Long" order="BEFORE">
+<!-- 			dual 은 더미테이블이다. : 테이블이 없는 값을 가져올때 사용 -->
+			SELECT review_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO review(rno, goods_no, title, content, id, status)
+		VALUES(#{rno}, #{goods_no, jdbcType=INTEGER}, #{title, jdbcType=VARCHAR}, #{content, jdbcType=VARCHAR},
+			#{id, jdbcType=VARCHAR}, #{status, jdbcType=VARCHAR})
+	</insert>
+	
+	
+	<!-- 리뷰 수정 쿼리 -->
+	<!-- ![CDATA[]] 를 사용하면 특수문자를 string으로 인식하게 만들어준다. -->
+	<update id="update">
+	    <![CDATA[
+	    UPDATE review
+	    SET title = #{title, jdbcType=VARCHAR}, content = #{content, jdbcType=VARCHAR},
+	        status = #{status, jdbcType=VARCHAR}
+	    WHERE rno = #{rno, jdbcType=INTEGER} AND id = #{id, jdbcType=VARCHAR}
+	    ]]>
+	</update>
+
+	
+	<!-- 리뷰 삭제 쿼리 -->
+	<delete id="delete">
+	    delete from review
+	    where rno = #{rno, jdbcType=INTEGER}
+	    <if test="id != 'admin'">
+	        and id = #{id, jdbcType=VARCHAR}
+	    </if>
+	</delete>
+	
+	
+	<!-- likeCount 좋아요 수 -->
+	<update id="increaseLikeCount">
+	    UPDATE review
+	    SET likeCount = likeCount + 1
+	    WHERE rno = #{rno, jdbcType=INTEGER}
+	</update>
+	
+	
+	<!-- 좋아요 중복 확인 쿼리 -->
+	<select id="checkDuplicateLike" parameterType="map" resultType="int">
+	    SELECT count(*)
+	    FROM review_likes
+	    WHERE user_id = #{userId} AND review_rno = #{reviewRno}
+	</select>
+	
+	
+	<!-- 좋아요 기록 추가 쿼리 -->
+	<insert id="insertLike" parameterType="map">
+	    INSERT INTO review_likes (user_id, review_rno)
+	    VALUES (#{userId}, #{reviewRno})
+	</insert>
+	
+	
+	<select id="countReviewsByGoodsNo" parameterType="Long" resultType="int">
+	    SELECT COUNT(*)
+	    FROM review
+	    WHERE goods_no = #{goods_no}
+	</select>
+	
+	
+	<select id="getReviewByRno" parameterType="Long" resultType="org.zerock.review.vo.ReviewVO">
+	    SELECT rno, goods_no, title, content, id, writeDate, likeCount, status
+	    FROM review
+	    WHERE rno = #{rno}
+	</select>
+	
+	
+	
+	
+	
+	<select id="selectReviewsByCategory" resultType="org.zerock.review.vo.ReviewVO">
+	    SELECT r.rno, r.goods_no, r.title, r.content, r.id, r.writeDate, r.status,
+	           (SELECT COUNT(*) FROM review_likes l WHERE l.review_rno = r.rno) AS likeCount
+	    FROM review r
+	    JOIN goods g ON r.goods_no = g.goods_no
+	    WHERE g.cate_code1 = #{categoryId}  <!-- 카테고리별 상품 필터링 -->
+	    ORDER BY likeCount DESC, r.writeDate DESC
+	</select>
+	
+	
+</mapper>

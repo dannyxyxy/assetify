@@ -1,0 +1,135 @@
+@charset "UTF-8";
+
+.profileImgSpace {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin-bottom: 20px;
+}
+
+.profileImgBox {
+   padding: 10px;
+}
+
+.input-file-button {
+   background-color: #333;
+   color: white;
+   border: none;
+   border-radius: 20px;
+   cursor: pointer;
+   padding: 5px 20px;
+}
+
+.misHeader {
+   align-items: center;
+   height: 100px;
+   margin: 0px;
+}
+
+.misTopBody {
+   height: 150px;
+}
+
+.misBottomBody {
+   height: 150px;
+}
+
+.memberStatusInputBox {
+   width: 80%;
+   height: 50px;
+   padding: 5px;
+   border: 1px solid #ddd;
+   border-radius: .25rem;
+   display: flex;
+}
+
+.memberStatusTextInput[type="text"], input[type="tel"], input[type="email"],
+   input[type="date"] {
+   width: 85%;
+   height: 100%;
+   padding: 0px;
+   border: none;
+   box-sizing: border-box;
+   margin-left: 5%;
+   margin-right: 2%;
+   font-size: 14px;
+}
+
+.memberStatusSelectInput[type="text"], select {
+   width: 90%;
+   height: 100%;
+   padding: 0px;
+   border: none;
+   box-sizing: border-box;
+   margin-left: 5%;
+   margin-right: 2%;
+   font-size: 14px;
+}
+
+.memberStatusInputClearBtn {
+   border-radius: 50px;
+   border: none;
+   background-color: #ffffff;
+}
+
+.memberStatusBirthdayInputBtn {
+   width: 15%;
+   height: 100%;
+   padding: 0px;
+   border: none;
+   border-radius: 50px;
+   background-color: #ffffff;
+}
+
+.memberStatusAdressInputBtn {
+   width: 15%;
+   height: 100%;
+   padding: 0px;
+   border: none;
+   border-radius: 50px;
+   background-color: #ffffff;
+}
+
+.memberStatusLabel {
+   /*    font-weight: bold; */
+   margin-bottom: 5px;
+   padding: 0px;
+   color: #888;
+}
+
+.misFooter {
+   height: 200px;
+}
+
+.misFooterBtnSpace {
+   float: right;
+}
+
+.updateBtn {
+   background-color: #333;
+   color: #fff;
+   border: none;
+   border-radius: .25rem;
+   cursor: pointer;
+   padding: 10px 40px;
+   margin: 0 16px 0 0;
+}
+
+.cancleBtn {
+   background-color: #eee;
+   color: #000;
+   border: none;
+   border-radius: .25rem;
+   cursor: pointer;
+   padding: 10px 40px;
+}
+
+.quitBtn {
+   background-color: #333;
+   color: #fff;
+   border: none;
+   border-radius: .25rem;
+   cursor: pointer;
+   padding: 10px 40px;
+}

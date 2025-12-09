@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.cart.mapper.CartMapper">
+    <select id="getCartListByUserId" resultMap="cartResultMap">
+        SELECT
+            c.cart_no,
+            c.id,
+            c.total,
+            g.goods_no,
+            g.goods_name,
+            g.content,
+            g.image_name,
+            p.price,
+            p.sale_price,
+            p.discount_rate
+        FROM
+            cart c
+        JOIN
+            goods g ON c.goods_no = g.goods_no
+        JOIN
+            goods_price p ON g.goods_no = p.goods_no
+        WHERE
+            c.id = #{id}  <!-- 로그인된 사용자의 id를 기준으로 위시리스트 조회 -->
+    </select>
+
+    <insert id="insertCartItem">
+        INSERT INTO cart (cart_no, goods_no, id, total)
+        VALUES (cart_seq.nextval, #{goods_no}, #{id}, #{total})
+    </insert>
+
+    <delete id="deleteCartItemByCartNo">
+        DELETE FROM cart WHERE cart_no = #{cartNo}
+    </delete>
+	
+	
+
+    <!-- 결과 매핑 -->
+    <resultMap id="cartResultMap" type="org.zerock.cart.vo.CartVO">
+        <result property="cart_no" column="cart_no"/>
+        <result property="id" column="id"/>
+        <result property="goods_name" column="goods_name"/>
+        <result property="content" column="content"/>
+        <result property="price" column="price"/>
+        <result property="sale_price" column="sale_price"/>
+        <result property="discount_rate" column="discount_rate"/>
+        <result property="image_name" column="image_name"/>
+        <result property="total" column="total"/>
+        <result property="goods_no" column="goods_no"/>
+        <result property="total_price" column="total_price"/>
+        <result property="quantity" column="quantity"/>
+    </resultMap>
+</mapper>

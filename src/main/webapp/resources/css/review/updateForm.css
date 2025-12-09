@@ -1,0 +1,137 @@
+@charset "UTF-8";
+
+.main-content {
+    min-height: calc(100vh - 300px);
+    min-height: 0;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.container {
+    box-sizing: content-box;
+    margin: 0;
+    pading: 0;
+    margin: auto;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.3rem;
+    display: block;
+}
+
+#eventStartDate {
+   width: 100%;
+}
+
+.titleBox {
+   width: 100%;
+   float: left;
+}
+
+.writeBox {
+   width: 49%;
+   float: right;
+}
+
+.startBox {
+   width: 49%;
+   float: left;
+}
+
+.endBox {
+   width: 49%;
+   float: right;
+}
+
+#eventEndDate {
+   width: 100%;
+}
+
+.ipt {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: .25rem;
+    font-size: 14px;
+}
+
+.lab {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: .25rem;
+    font-size: 14px;
+}
+
+textarea {
+   width: 100%;
+   height: 300px;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.checkbox input {
+    margin-right: 0.5rem;
+}
+
+#input-file {
+   font-size: 14px;
+}
+
+
+
+.rConTit {
+   width: 100px;
+   margin: 0 0 4.8px 0;
+}
+
+#eventContent {
+   margin: 0;
+}
+
+.file {
+   margin-top: 10px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+    height: 100px;
+}
+
+.back-button {
+    color: #000;
+   width: 150px;
+   height: 40px;
+   border: none;
+   font-size: 14px;
+    background-color: #eee;
+    margin: 0 16px 0 0;
+    border-radius: .25rem;
+    padding: 0;
+}
+
+.submit-button {
+    color: #fff;
+   width: 150px;
+   height: 40px;
+   font-size: 14px;
+    background-color: #333;
+    margin: 0;
+    border-radius: .25rem;
+    padding: 0;
+}

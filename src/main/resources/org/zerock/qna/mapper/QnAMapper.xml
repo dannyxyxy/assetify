@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+  <mapper namespace="org.zerock.qna.mapper.QnAMapper">
+
+
+<!--  qna 리스트 쿼리 -->
+
+<!-- 관리자용 전체 게시글 조회 쿼리 -->
+    <select id="listAll" resultType="org.zerock.qna.vo.QnAVO">
+        select rnum, no, id, title, content, replyContent, goods_code, writeDate, replyDate, goods_name, image_name
+        from (
+            select rownum as rnum, no, id, title, content, replyContent, goods_code, writeDate, replyDate, goods_name, image_name
+            from (
+                select q.no, q.id, q.title, q.content, q.replyContent, q.goods_code, q.writeDate, q.replyDate,
+                       g.goods_name, g.image_name
+                from qna q
+                join goods g on q.goods_code = g.goods_code
+                order by q.no desc
+            )
+        )
+        where rnum between #{startRow} and #{endRow}
+    </select>
+
+    <!-- 일반 사용자용 본인 작성 게시글 조회 쿼리 -->
+    <select id="listByUserId" resultType="org.zerock.qna.vo.QnAVO">
+        select rnum, no, id, title, content, replyContent, goods_code, writeDate, replyDate, goods_name, image_name
+        from (
+            select rownum as rnum, no, id, title, content, replyContent, goods_code, writeDate, replyDate, goods_name, image_name
+            from (
+                select q.no, q.id, q.title, q.content, q.replyContent, q.goods_code, q.writeDate, q.replyDate,
+                       g.goods_name, g.image_name
+                from qna q
+                join goods g on q.goods_code = g.goods_code
+                where q.id = #{userId}  <!-- 특정 작성자 필터링 -->
+                order by q.no desc
+            )
+        )
+        where rnum between #{pageObject.startRow} and #{pageObject.endRow}
+    </select>
+  	
+  	<!-- 관리자용 전체 게시글 개수 조회 쿼리 -->
+    <select id="getTotalRowForAdmin" resultType="Long">
+        select count(*)
+        from qna
+    </select>
+
+    <!-- 일반 사용자용 본인 작성 게시글 개수 조회 쿼리 -->
+    <select id="getTotalRowForUser" parameterType="map" resultType="Long">
+        select count(*)
+        from qna
+        where id = #{userId}  <!-- 사용자 ID가 일치하는 게시글만 조회 -->
+    </select>
+
+	<!-- qna 게시판 글보기 -->
+   <select id="view" resultType="org.zerock.qna.vo.QnAVO">
+       select q.no, q.id, q.title, q.content, q.replyContent, q.goods_code, q.writeDate, q.replyDate, g.goods_name , qna_image_name
+       from qna q
+       join goods g on q.goods_code = g.goods_code
+       where no = #{no, jdbcType=INTEGER}
+   </select>
+   
+    <!--  글쓰기 쿼리  -->
+	<insert id="write" parameterType="org.zerock.qna.vo.QnAVO">
+		<selectKey keyProperty="no" resultType="Integer" order="BEFORE"> SELECT qna_seq.NEXTVAL FROM dual </selectKey>
+		INSERT INTO qna 
+		(no, id, title, content, goods_code, replyDate, qna_image_name) 
+		VALUES (#{no}, #{id, jdbcType=VARCHAR},#{title, jdbcType=VARCHAR}, 
+		#{content, jdbcType=VARCHAR}, #{goods_code,jdbcType=VARCHAR}, 
+		#{replyDate, jdbcType=DATE}, #{qna_image_name, jdbcType=VARCHAR})
+	</insert>
+	
+	 <!-- QnA 수정 -->
+    <update id="update">
+        UPDATE qna
+        SET 
+            title = #{title},
+            content = #{content},
+            goods_code = #{goods_code},
+<!--              새 이미지가 없으면 기존 값을 유지 -->
+            qna_image_name = COALESCE(#{qna_image_name}, qna_image_name),
+            writeDate = SYSDATE
+        WHERE 
+            no = #{no}
+    </update>
+
+	<!-- 답변 기능 -->
+	<update id="updateReply">
+        UPDATE qna
+        SET 
+            replyContent = #{replyContent, jdbcType=VARCHAR},
+            replyDate = SYSDATE
+        WHERE 
+            no = #{no}
+    </update>
+
+    <!-- 기존 이미지 삭제 -->
+    <update id="deleteImage">
+        UPDATE qna
+        SET qna_image_name = NULL
+        WHERE no = #{no}
+    </update>
+	
+	 <!-- 게시글 삭제 쿼리 -->
+    <delete id="delete" parameterType="Long">
+        delete from qna
+        where no = #{no}
+    </delete>
+  
+  </mapper>
+
+

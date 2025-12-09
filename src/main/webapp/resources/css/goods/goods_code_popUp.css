@@ -1,0 +1,130 @@
+@charset "UTF-8";
+body {
+	font-family: Arial, sans-serif;
+	margin: 20px;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+th, td {
+	border: 1px solid #ccc;
+	padding: 10px;
+	text-align: center;
+}
+
+th {
+	background-color: #f4f4f4;
+}
+
+button {
+	padding: 5px 10px;
+	margin: 5px;
+	background-color: #333333;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #ccc;
+}
+
+.search-container {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	flex-grow: 1;
+	max-width: 600px;
+	min-height: 50px;
+}
+
+.searchDrop {
+	border-radius: 15px;
+	width: 25%;
+	padding: 7px;
+}
+
+.search-bar-container {
+	position: relative;
+	width: 300px;
+}
+
+.form-control.search-bar {
+	width: 100%;
+	padding: 7px;
+	padding-left: 50px;
+	border-radius: 15px;
+	border: 1px solid #ddd;
+	outline: none;
+	box-sizing: border-box;
+	background-color: #fafafa; /**/
+	font-size: 14px; /**/
+}
+
+.search-icon {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #aaa;
+	font-size: 16px;
+}
+
+.searchBtn {
+	border: none;
+	background-color: transparent;
+	cursor: pointer; /*클릭 작동*/
+}
+
+/* 검색바 안에있는 돋보기 아이콘 버튼 자꾸 안보여서 클래스에 이름 주고 수정함 */
+.searchBtn .icon {
+	color: #555; /* 아이콘 색상 설정 */
+}
+
+/* 검색바에 X 버튼 추가 */
+.cancel-icon {
+	position: absolute;
+	right: 1px;
+	top: 50%;
+	transform: translateY(-55%);
+	color: #aaa;
+	font-size: 16px;
+}
+
+.resetBtn {
+	border: none;
+	background-color: transparent;
+	cursor: pointer; /*클릭 작동*/
+}
+
+.resetBtn .times {
+	color: #555; /* 아이콘 색상 설정 */
+}
+
+.nav-icons {
+	display: flex;
+	align-items: center;
+	flex-wrap: nowrap; /* 요소들이 한 줄에 나란히 배치되도록 설정 */
+}
+
+.nav-icons a {
+	margin: 0 15px 0 15px;
+	color: black;
+	font-size: 14px;
+	text-decoration: none;
+}
+
+.nav-icons a:hover {
+	color: #555;
+}
+
+.paginationBox {
+	display: flex;
+	flex-direction: row; /* 가로 정렬 */
+	justify-content: center; /* 중앙 정렬 */
+	align-items: center; /* 세로 가운데 정렬 */
+	padding: 20px;
+}

@@ -1,0 +1,47 @@
+@charset "UTF-8";
+       
+        .LoginAll {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+            margin-top: 100px;
+            align-items: center;
+           
+        }
+        .loginInput {
+            width: 40%;
+            margin: 0 auto;
+            align-items: center;
+        }
+        .loginText {
+        	text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 40px;
+        }
+        .id,
+        .pw {
+            border-radius: 0;
+            height: 50px;
+            font-size: 1rem;
+        }
+        .btn-primary {
+            background-color: #C9B89E;
+            border: none;
+            height: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            background-color: #B8A88D;
+        }
+        .signup-link {
+        	text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        .signup-link a {
+            color: #5A8F60;
+            font-weight: bold;
+        }

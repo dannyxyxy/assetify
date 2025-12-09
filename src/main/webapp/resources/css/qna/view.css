@@ -1,0 +1,77 @@
+@charset "UTF-8";
+
+.qnaInfo {
+    display: flex;
+    font-size: 14px;
+    margin-bottom: 20px;
+    justify-content: flex-start;
+}
+
+.title-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    justify-content: flex-start;
+}
+
+.title-box {
+    flex-grow: 1;
+    border: 1px solid #ddd;
+    padding: 10px;
+    display: flex;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.content-box {
+    display: flex;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.btnBox {
+    width: 100%;
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.registerBtn, .deleteBtn {
+	width: 150px;
+    height: 40px;
+    font-size: 14px; /* 적절한 크기로 조정 */
+    background-color: #333;
+    color: #FFF; /* 텍스트 색상 */
+    border: none;
+    border-radius:.25rem;
+    text-align: center;
+    cursor: pointer;
+    vertical-align: middle;
+    display: inline-flex; /* 플렉스 컨테이너로 변경 */
+    align-items: center;  /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 (선택 사항) */
+    margin-left: 10px;
+}
+
+.btn:hover{
+	color:#fff;
+	background-color: #333;
+}
+
+.cancelBtn {
+	color: #000000;
+	background-color: #EEEEEE;
+    margin: 0 0 0 16px;
+    width: 150px;
+    height: 40px;
+    border: none;
+    border-radius: .25rem;
+    font-size: 14px;
+    text-align: center;
+    line-height: 40px;
+}

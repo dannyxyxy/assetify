@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+.qnaInfo-container{
+	width: 100%;
+}
+.qnaInfo-box{
+	border: 1px solid #ccc;
+	border-radius: .60rem;
+	font-size: 1rem;
+	padding: 10px;
+}
+
+.qnaContent-container{
+	width: 100%;
+}
+
+.qnaContent-box{
+	width: 100%;
+	min-height: 300px;
+	border: 1px solid #ccc;
+	border-radius: .60rem;
+	font-size: 1rem;
+	padding: 10px;
+}
+
+.ipt {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 1rem;
+	border: 1px solid #ccc;
+	border-radius: .25rem;
+	font-size: 14px;
+}
+
+.btnBox {
+	margin: 20px 0 0 0;
+	height: 100px;
+}
+
+.cancelBtn {
+	color: #000000;
+	background-color: #EEEEEE;
+	width: 150px;
+	height: 40px;
+	float: right;
+	margin: 0 0 0 16px;
+	border: none;
+	border-radius: .25rem;
+	font-size: 14px;
+}
+
+.registerBtn {
+	width: 150px;
+	height: 40px;
+	float: right;
+	border-radius: .25rem;
+	font-size: 14px;
+	background-color: #333333;
+	color: #FFFFFF;
+	margin: 0 0 0 16px;
+
+}
+
+select {
+	height: 38px;
+	border: 1px solid #ccc;
+	border-radius: .25rem;
+}
